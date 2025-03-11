@@ -1,19 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:movies_project/forget_password/forget_password.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movies_project/l10n/app_localizations.dart';
 import 'package:movies_project/login_screen/login_screen.dart';
 import 'package:movies_project/on_boarding/on_boarding.dart';
+import 'package:movies_project/provider/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'provider/provider.dart';
 
-void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => LocalProvider(),
-      child: MyApp(),
-    ),
-  );
-}
+import 'forget_password/forget_password.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,8 +17,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       locale: Locale(context.watch<LocalProvider>().locale),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      supportedLocales: [
+        Locale('en', ''), // الإنجليزية
+        Locale('ar', ''), // العربية
+      ],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       initialRoute: Onboarding.routeName,
       debugShowCheckedModeBanner: false,
       routes: {
@@ -33,8 +36,7 @@ class MyApp extends StatelessWidget {
           },
         ),
         Onboarding.routeName: (context) => const Onboarding(),
-        ForgetPasswordScreen.routeName: (context) =>
-        const ForgetPasswordScreen(),
+        ForgetPasswordScreen.routeName: (context) => const ForgetPasswordScreen(),
       },
     );
   }

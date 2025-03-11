@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         selectedLanguage = value;
                       });
-                      widget.changeLanguage(value); // تغيير اللغة هنا
+                      widget.changeLanguage(value); // تغيير اللغة هنا// تغيير اللغة هنا
                     },
                   ),
                 ],

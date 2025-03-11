@@ -7,6 +7,6 @@ class LocalProvider extends ChangeNotifier {
 
   void changeLanguage(String languageCode) {
     _locale = languageCode;
-    notifyListeners(); // تحديث كل الواجهات التي تستمع لهذا المزود
+    notifyListeners(); // تحديث الواجهة عند تغيير اللغة
   }
 }
