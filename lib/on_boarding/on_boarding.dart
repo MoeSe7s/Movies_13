@@ -122,6 +122,7 @@ class _OnboardingState extends State<Onboarding> {
                             backgroundColor: Colors.yellow,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
+
                             ),
                           ),
                           child: Text(
