@@ -125,6 +125,7 @@ class _OnboardingState extends State<Onboarding> {
 
                             ),
                           ),
+
                           child: Text(
                             data["buttonText"]!,
                             style: const TextStyle(
