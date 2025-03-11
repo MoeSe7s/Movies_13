@@ -6,7 +6,8 @@ void main() {
 }
 
 class homescrean extends StatelessWidget {
-  static var routeName;
+  static const String routeName = "/home"; // ✅ تعريف ثابت للمسار
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,8 @@ class homescrean extends StatelessWidget {
 
 
 class HomeScreen extends StatefulWidget {
+  static var routeName;
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

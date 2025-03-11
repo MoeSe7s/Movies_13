@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_project/l10n/app_localizations.dart';
+import 'package:movies_project/screens/login_screen/login_screen.dart';
 import 'package:movies_project/ui/app_image.dart';
 
 class Onboarding extends StatefulWidget {
@@ -16,7 +17,6 @@ class _OnboardingState extends State<Onboarding> {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ استخدم AppLocalizations للحصول على النصوص المترجمة
     final localizations = AppLocalizations.of(context)!;
 
     final List<Map<String, String>> onboardingData = [
@@ -80,7 +80,7 @@ class _OnboardingState extends State<Onboarding> {
               ElevatedButton(
                 onPressed: () {
                   if (index == onboardingData.length - 1) {
-                    Navigator.pushNamed(context, "/LoginScreen");
+                    Navigator.pushNamed(context, LoginScreen.routeName); // ✅ الانتقال إلى تسجيل الدخول
                   } else {
                     _controller.nextPage(
                       duration: const Duration(milliseconds: 300),
@@ -90,6 +90,7 @@ class _OnboardingState extends State<Onboarding> {
                 },
                 child: Text(data["buttonText"]!),
               ),
+
             ],
           );
         },
