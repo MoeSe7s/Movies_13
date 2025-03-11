@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_project/assets/app_image.dart';
 import 'package:movies_project/l10n/app_localizations.dart';
+import 'package:movies_project/ui/app_image.dart';
 
 class Onboarding extends StatefulWidget {
   static const routeName = "/onboarding";

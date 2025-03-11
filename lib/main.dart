@@ -3,12 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movies_project/l10n/app_localizations.dart';
-import 'package:movies_project/login_screen/login_screen.dart';
-import 'package:movies_project/on_boarding/on_boarding.dart';
+
 import 'package:movies_project/provider/provider.dart';
+import 'package:movies_project/screens/forget_password/forget_password.dart';
+import 'package:movies_project/screens/on_boarding/on_boarding.dart';
 import 'package:provider/provider.dart';
 
-import 'forget_password/forget_password.dart';
+import 'screens/login_screen/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movies_project/assets/app_color.dart';
-import 'package:movies_project/assets/app_icon.dart';
-import 'package:movies_project/assets/app_image.dart';
+
+import 'package:movies_project/ui/app_color.dart';
+import 'package:movies_project/ui/app_image.dart';
+
+import '../ui/app_icon.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({super.key});
