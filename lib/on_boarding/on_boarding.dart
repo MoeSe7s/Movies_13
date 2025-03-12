@@ -24,39 +24,39 @@ class _OnboardingState extends State<Onboarding> {
     final List<Map<String, String>> onboardingData = [
       {
         "image": AppImage.onBoard1,
-        "title": localizations.findMovie,
-        "description": localizations.findMovieDesc,
-        "buttonText": localizations.exploreNow
+        // "title": localizations.findMovie,
+        // "description": localizations.findMovieDesc,
+        // "buttonText": localizations.exploreNow
       },
       {
         "image": AppImage.onBoard2,
-        "title": localizations.discoverMovies,
-        "description": localizations.discoverMoviesDesc,
-        "buttonText": localizations.next
+        // "title": localizations.discoverMovies,
+        // "description": localizations.discoverMoviesDesc,
+        // "buttonText": localizations.next
       },
       {
         "image": AppImage.onBoard3,
-        "title": localizations.exploreGenres,
-        "description": localizations.exploreGenresDesc,
-        "buttonText": localizations.next
+        // "title": localizations.exploreGenres,
+        // "description": localizations.exploreGenresDesc,
+        // "buttonText": localizations.next
       },
       {
         "image": AppImage.onBoard4,
-        "title": localizations.createWatchlist,
-        "description": localizations.createWatchlistDesc,
-        "buttonText": localizations.next
+        // "title": localizations.createWatchlist,
+        // "description": localizations.createWatchlistDesc,
+        // "buttonText": localizations.next
       },
       {
         "image": AppImage.onBoard5,
-        "title": localizations.rateReview,
-        "description": localizations.rateReviewDesc,
-        "buttonText": localizations.next
+        // "title": localizations.rateReview,
+        // "description": localizations.rateReviewDesc,
+        // "buttonText": localizations.next
       },
       {
         "image": AppImage.onBoard6,
-        "title": localizations.startWatching,
-        "description": localizations.startWatchingDesc,
-        "buttonText": localizations.finish
+        // "title": localizations.startWatching,
+        // "description": localizations.startWatchingDesc,
+        // "buttonText": localizations.finish
       },
     ];
 
