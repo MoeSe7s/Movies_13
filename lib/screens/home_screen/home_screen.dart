@@ -1,77 +1,430 @@
 import 'package:flutter/material.dart';
-import 'package:movies_project/assets/app_color.dart';
-import 'package:movies_project/assets/app_icon.dart';
-import 'package:movies_project/tabs/browse_tab.dart';
-import 'package:movies_project/tabs/home_tab.dart';
-import 'package:movies_project/tabs/profile_tab.dart';
-import 'package:movies_project/tabs/search_tab.dart';
+import 'package:movies_project/provider/provider.dart';
+import 'package:movies_project/screens/home_screen/details_screan.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  static const String routeName = "/home_screen";
-
-  const HomeScreen({super.key});
-
+void main() {
+  runApp(homescrean());
+}
+class HomeApp extends StatelessWidget {
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      locale: Locale(context
+          .watch<LocalProvider>()
+          .locale),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      initialRoute: HomeScreen.routeName,
+      debugShowCheckedModeBanner: false,
+      routes: {
+        HomeScreen.routeName: (context) => HomeScreen(),
+      },
+    );
+  }
 }
 
+class homescrean extends StatelessWidget {
+  static const String routeName = "/home";
+  @override
+
+
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    );
+  }
+
+
+}
+
+
+class HomeScreen extends StatefulWidget {
+  static var routeName;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedIndex = 0 ;
+  final List<String> images = [
+    "assets/images/Card.png",
+    "assets/images/Card2 (1).png",
+    "assets/images/Card.png",
 
-
-  List<Widget> tabs = [
-    HomeTab(),
-    SearchTab(),
-    const BrowseTab(),
-    const ProfileTab(),
   ];
+
+
+  int currentIndex = 0;
+  int _currentIndex = 0;
+
+  final PageController _pageController = PageController(viewportFraction: 0.5);
+
+  void _showSideDrawer(BuildContext context) {
+    showModalBottomSheet(
+
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent , // جعل الخلفية شفافة
+      builder: (context) {
+        return Align(
+          alignment: Alignment.centerLeft, // محاذاة الشريط إلى اليسار
+          child: FractionallySizedBox(
+            widthFactor: 0.6, // اجعل الشريط يأخذ 70% من عرض الشاشة
+            child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.horizontal(right: Radius.circular(20)), // تدوير الحافة اليمنى فقط
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 40),
+                  Text("Menu",
+                      style: TextStyle(color: Colors.yellow, fontSize: 22, fontWeight: FontWeight.bold)),
+                  Divider(color: Colors.yellow),
+                  SizedBox(height: 20),
+                  _buildMenuItem(Icons.home, "Go To Home"),
+                  _buildMenuItem(Icons.dark_mode, "Theme"),
+                  _buildMenuItem(Icons.language, "Language"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20), // فراغ 20 يمين وشمال
+                    child: Divider(color: Colors.yellow),
+                  ),
+                  _buildMenuItem(Icons.settings, "Settings"),
+                  _buildMenuItem(Icons.favorite, "Favorites"),
+                  _buildMenuItem(Icons.download, "Downloads"),
+                  _buildMenuItem(Icons.share, "Share"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20), // فراغ 20 يمين وشمال
+                    child: Divider(color: Colors.yellow),
+                  ),
+                  _buildMenuItem(Icons.notification_add, "Notifications"),
+                  _buildMenuItem(Icons.compare_arrows_outlined, "Strong and Data"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20), // فراغ 20 يمين وشمال
+                    child: Divider(color: Colors.yellow),
+                  ),
+                  _buildMenuItem(Icons.info_outline, "Help"),
+
+                  _buildMenuItem(Icons.people, "Invite Friend"),
+                  _buildMenuItem(Icons.share, "Share"),
+                  Spacer(),
+                  _buildMenuItem(Icons.logout, "Logout"),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  Widget _buildMenuItem(IconData icon, String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.yellow, size: 24),
+          SizedBox(width: 15),
+          Text(label, style: TextStyle(color: Colors.white, fontSize: 18)),
+        ],
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return
-        Scaffold(
-          backgroundColor: AppColor.blackColor,
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: BottomNavigationBar(
-                  selectedItemColor: AppColor.yellow,
-                  unselectedItemColor: AppColor.whiteColor,
-                  showSelectedLabels: true,
-                  showUnselectedLabels: false,
-                  currentIndex: selectedIndex,
-                  onTap: (index) {
-                    selectedIndex = index;
-                    setState(() {
-                    });
-                  },
-                  backgroundColor: AppColor.grayColor,
-                  type: BottomNavigationBarType.fixed,
-                  items: [
-                    BottomNavigationBarItem(
-                        icon: builtItemInBottomNavBar(index: 0, imageName: AppIcon.homeIcon),
-                        label: ""),
-                    BottomNavigationBarItem(
-                        icon: builtItemInBottomNavBar(index: 1, imageName: AppIcon.searchIcon),
-                        label: ""),
-                    BottomNavigationBarItem(
-                        icon: builtItemInBottomNavBar(index: 2, imageName: AppIcon.exploreIcon),
-                        label: ""),
-                    BottomNavigationBarItem(
-                        icon: builtItemInBottomNavBar(index: 3, imageName: AppIcon.profileIcon),
-                        label: ""),
-              
-                  ]),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5),
+                    BlendMode.darken,
+                  ),
+                  child: AnimatedSwitcher(
+                    duration: Duration(seconds: 1),
+                    child: Image.asset(
+                      images[currentIndex],
+                      key: ValueKey<String>(images[currentIndex]),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 400,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 50,
+                  left: 20,
+                  child: IconButton(
+                    icon: Icon(Icons.menu, color: Colors.yellow, size: 30),
+                    onPressed: () => _showSideDrawer(context),
+                  ),
+                ),
+                Positioned(
+                  top: 50,
+                  right: 20,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      "assets/images/Available Now.png",
+                      width: 300,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 150),
+                    Center(
+                      child: SizedBox(
+                        height: 350,
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount: images.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return AnimatedBuilder(
+                              animation: _pageController,
+                              builder: (context, child) {
+                                double value = 1.0;
+                                if (_pageController.position.haveDimensions) {
+                                  value = _pageController.page! - index;
+                                  value = (1 - (value.abs() * 0.3)).clamp(0.2, 1.0);
+                                }
+                                return Center(
+                                  child: Transform.scale(
+                                    scale: value,
+                                    child: child,
+                                  ),
+                                );
+                              },
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MovieDetails(),
+                                    ),
+                                  );
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                    images[index],
+                                    height: 350,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
+                    ),
+                    SizedBox(height: 20,),
+                    Center(
+                      child:  Image.asset(
+                        "assets/images/Watch Now.png",
+                        width: 350,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),),
+                  ],
+                ),
+
+              ],
+
             ),
-          ),
-          body: tabs[selectedIndex],
-        );
-  }
-  Widget builtItemInBottomNavBar({required int index, required String imageName}) {
-    return selectedIndex == index ?
-    ImageIcon(AssetImage(imageName)) :
-    ImageIcon(AssetImage(imageName));
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Action",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Row(
+                    children: [
+                      Text("More Than",
+                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
+                      SizedBox(width: 10),
+                      Icon(Icons.arrow_forward_sharp, color: Colors.yellow),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        images[index],
+                        width: 150,
+                        height: 350,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20), // فراغ 20 يمين وشمال
+              child: Divider(color: Colors.yellow),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Action",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Row(
+                    children: [
+                      Text("More Than",
+                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
+                      SizedBox(width: 10),
+                      Icon(Icons.arrow_forward_sharp, color: Colors.yellow),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        images[index],
+                        width: 150,
+                        height: 350,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20), // فراغ 20 يمين وشمال
+              child: Divider(color: Colors.yellow),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Action",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Row(
+                    children: [
+                      Text("More Than",
+                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
+                      SizedBox(width: 10),
+                      Icon(Icons.arrow_forward_sharp, color: Colors.yellow),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        images[index],
+                        width: 150,
+                        height: 350,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20), // فراغ 20 يمين وشمال
+              child: Divider(color: Colors.yellow),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Action",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  Row(
+                    children: [
+                      Text("More Than",
+                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
+                      SizedBox(width: 10),
+                      Icon(Icons.arrow_forward_sharp, color: Colors.yellow),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        images[index],
+                        width: 150,
+                        height: 350,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+
+    );
   }
 }
-
